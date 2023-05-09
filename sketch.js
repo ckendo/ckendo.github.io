@@ -101,6 +101,7 @@ function setup() {
 		// let msg = data.get(1);
 		sayings.push(msg);
 	}
+	// sayings = ["test"];
 
 	initCanvas();
 	background(25);
@@ -286,13 +287,20 @@ function drawBlob() {
 	pop()
 }
 
+var bounceScale = 1;
+
 function initBouncing(){
-	background(random(10, 30), random(10, 30), random(10, 30));
+	background(random(30, 50), random(30, 50), random(30, 50));
 	x = random(0, windowWidth);
 	y = random(0, windowHeight);
 	xspeed = random(-5, 5);
 	yspeed = random(-5, 5);
+	bounceScale = random(20, windowHeight/2);
 }
+
+var currR = random(100, 200);
+var currG = random(50, 200);
+var currB = random(50, 200);
 
 function drawBouncing() {
 	// background(255, 0, 0);
@@ -306,13 +314,17 @@ function drawBouncing() {
 
 	//distance from center of the screen
 	var vol = mic.getLevel();
-	var d = map(vol, 0, 1, windowHeight/3, 0);
-
-	fill (random(100, 200), random(50, 200), random(50, 200));
+	// var d = map(vol, 0, 1, windowHeight/3, 0);
+	if (tick % 5 == 0){
+		currR = random(100, 200);
+		currG = random(50, 200);
+		currB = random(50, 200);
+	}
+	fill (currR, currG, currB);
 	push()
 	translate(x, y)
 	for (var i = 0; i < 10; i ++) {
-		ellipse(0, 30, d/5, d);
+		ellipse(0, 10, bounceScale/5, bounceScale/2);
 		rotate(PI/5);// +radians(frameCount)/10)
 	}
 	pop()
@@ -373,7 +385,12 @@ function drawBalls() {
 	var vol = mic.getLevel();
 	var d = map(vol, 0, 1, windowHeight/3, 0);
 
-	fill (random(100, 200), random(50, 200), random(50, 200));
+	if (tick % 5 == 0){
+		currR = random(100, 200);
+		currG = random(50, 200);
+		currB = random(50, 200);
+	}
+	fill (currR, currG, currB);
 	// variableEllipse(x, y, xspeed, yspeed);
 	variableRectangle(x, y, xspeed, yspeed);
 
